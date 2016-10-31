@@ -1,0 +1,12 @@
+.point-badge {
+  background: #004280 !important;
+  border-radius: 3px !important;
+  color: #fff !important;
+  display: inline-block !important;
+  float: left !important;
+  padding: 0 0.4em !important;
+}
+
+.point-badge--unestimated {
+  background: #f00 !important;
+}

@@ -1,34 +1,55 @@
+const REG_EXP = /^\s*[\(\[]\s*([\.0-9\?]+)\s*[\]\)]\s*(.*)$/i;
+
 function update() {
-  Array.from(document.querySelectorAll('.list-card-title')).forEach((title) => {
-    if (title.getElementsByTagName('b').length === 0) {
-      if (title.innerHTML.match(/\(([\.0-9\?]+)\)/i)) {
-        if (title.innerHTML.match(/\((\?)\)/i)) {
-          title.innerHTML = title.innerHTML.replace(/\(([\.0-9\?]+)\)/i, '<b class="list-card-title-points" style="background:#f00;border-radius:3px;color:#fff;display:inline-block;padding:0 0.4em;">$1</b>');
-        } else {
-          title.innerHTML = title.innerHTML.replace(/\(([\.0-9\?]+)\)/i, '<b class="list-card-title-points" style="background:#004280;border-radius:3px;color:#fff;display:inline-block;padding:0 0.4em;">$1</b>');
-        }
+
+  const cards = Array.from(document.querySelectorAll('#board .list-card'));
+  const lists = Array.from(document.querySelectorAll('#board .list'));
+
+  cards.forEach((card) => {
+    const title = card.querySelector('.list-card-title');
+    const badgeList = card.querySelector('.badges');
+    const match = title.innerText.match(REG_EXP);
+
+    if (match) {
+      let badge = badgeList.querySelector('.point-badge');
+
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.classList.add('badge');
+        badge.classList.add('point-badge');
+
+        if (badgeList.children.length) badgeList.insertBefore(badge, badgeList.children[0]);
+        else badgeList.appendChild(badge);
       }
+
+      if (badge.innerText != match[1]) badge.innerText = match[1];
+
+      if (match[1] === '?') badge.classList.add('point-badge--unestimated');
+      else badge.classList.remove('point-badge--unestimated');
+
+      title.childNodes[1].data = match[2];
     }
   });
 
-  Array.from(document.querySelectorAll('#board .list')).forEach((list) => {
-    const points = Array.from(list.querySelectorAll('.list-cards .list-card .list-card-details .list-card-title-points')).reduce((points, card) => {
-      return points + (parseFloat((card.innerText.match(/^\s*([\s0-9\?\.]+)/i) || [])[1], 10) || 0);
+  lists.forEach((list) => {
+    const listHeaderExtras = list.querySelector('.list-header-extras');
+    const cardBadges = Array.from(list.querySelectorAll('.list-cards .point-badge'));
+    const points = cardBadges.reduce((points, b) => {
+      return points + (parseFloat(b.innerText, 10) || 0);
     }, 0);
 
-    let span = list.querySelector('.list-header .list-header-extras .list-header-extras-points');
+    let badge = listHeaderExtras.querySelector('.point-badge');
 
-    if (!span) {
-      span = document.createElement('span');
-      span.classList.add('list-header-extras-points');
-      span.style = 'background:#004280;border-radius:3px;color:#fff;display:inline-block;padding:0 0.4em;';
-      list.querySelector('.list-header .list-header-extras').appendChild(span);
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.classList.add('point-badge');
+      badge.innerText = '0';
+
+      if (listHeaderExtras.children.length) listHeaderExtras.insertBefore(badge, listHeaderExtras.children[0]);
+      else listHeaderExtras.appendChild(badge);
     }
 
-    if (span.innerText != points) {
-      span.innerText = points;
-    }
-
+    if (badge.innerText != points) badge.innerText = points;
   });
 
   setTimeout(update, 500);

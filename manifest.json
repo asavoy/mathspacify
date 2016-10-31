@@ -12,7 +12,8 @@
         "https://trello.com/*",
         "https://www.trello.com/*"
       ],
-      "js": ["index.js"]
+      "js": ["index.js"],
+      "css": ["index.css"]
     }
   ]
 }
