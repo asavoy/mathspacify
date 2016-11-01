@@ -8,5 +8,21 @@
 }
 
 .point-badge--unestimated {
-  background: #f00 !important;
+  background: #b31919 !important;
+}
+
+.subtle-id {
+  color: #999 !important;
+}
+
+.list-wrapper-start {
+  margin-left: 140px !important;
+}
+
+.list-wrapper-end {
+  margin-right: 140px !important;
+}
+
+.list-wrapper-end + .list-wrapper-start {
+  margin-left: 0 !important;
 }
