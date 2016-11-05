@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Mathspacify",
-  "description" : "",
-  "version": "1.0",
+  "description" : "Enhancements for Trello",
+  "version": "0.1",
   "content_scripts": [
     {
       "matches": [
