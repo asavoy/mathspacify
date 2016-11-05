@@ -13,4 +13,4 @@
 
 2.  Drag-and-drop the `mathspacify.crx` file you downloaded into the Chrome extensions page:
 
-    chrome://extensions/
+    [chrome://extensions/](chrome://extensions/)
