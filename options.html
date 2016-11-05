@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Mathspacify Options</title>
+    <style>
+      body {
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 0.5em;
+      }
+      section + section {
+        margin-top: 1.5em;
+      }
+      .field + .field {
+        margin-top: 0.25em;
+      }
+      .success {
+        color: #0c0;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <section>
+      <div class="field">
+        <label>
+          <input type="checkbox" id="cardIds">
+          Show card IDs
+        </label>
+      </div>
+      <div class="field">
+        <label>
+          <input type="checkbox" id="listGrouping">
+          Group lists
+        </label>
+      </div>
+      <div class="field">
+        <label>
+          <input type="checkbox" id="pointsBadges">
+          Show points badges
+        </label>
+      </div>
+    </section>
+
+    <section>
+      <div class="field">
+        <button id="save">Save</button>
+        <span id="status" class="success"></span>
+      </div>
+      <div class="field">
+        <small>
+          Reload already open pages to see changes take effect.
+        </small>
+      </div>
+    </section>
+
+    <script src="options.js"></script>
+
+  </body>
+
+</html>
