@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Trello Points",
+  "name": "Mathspacify",
   "description" : "",
   "version": "1.0",
   "content_scripts": [

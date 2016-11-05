@@ -1,3 +1,3 @@
-# Trello Points and More!
+# Mathspacify
 
 ![Screenshot](screenshot.png)
