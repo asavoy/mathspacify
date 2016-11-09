@@ -4,6 +4,13 @@
   "name": "Mathspacify",
   "description" : "Enhancements for Trello",
   "version": "0.1",
+  "permissions": [
+    "storage"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "content_scripts": [
     {
       "matches": [
