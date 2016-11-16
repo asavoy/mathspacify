@@ -9,7 +9,7 @@ function update(settings) {
 
     cards.forEach((card) => {
       const title = card.querySelector('.list-card-title');
-      const hiddenId = title.querySelector('.card-short-id.hide');
+      const hiddenId = title && title.querySelector('.card-short-id.hide');
 
       if (hiddenId) {
         hiddenId.classList.remove('hide');
@@ -52,7 +52,7 @@ function update(settings) {
     cards.forEach((card) => {
       const title = card.querySelector('.list-card-title');
       const badgeList = card.querySelector('.badges');
-      const match = title.innerText.match(REG_EXP);
+      const match = title && title.innerText.match(REG_EXP);
 
       if (match) {
         let badge = badgeList.querySelector('.point-badge');
@@ -99,12 +99,15 @@ function update(settings) {
     });
 
   }
-
-  setTimeout(() => update(settings), 500);
 }
 
-chrome.storage.sync.get({
-  enableCardIds: true,
-  enableListGrouping: true,
-  enablePointsBadges: true,
-}, update);
+chrome.storage.sync.get(
+  {
+    enableCardIds: true,
+    enableListGrouping: true,
+    enablePointsBadges: true,
+  },
+  function (settings) {
+    setInterval(() => update(settings), 500);
+  }
+);
