@@ -99,12 +99,15 @@ function update(settings) {
     });
 
   }
-
-  setTimeout(() => update(settings), 500);
 }
 
-chrome.storage.sync.get({
-  enableCardIds: true,
-  enableListGrouping: true,
-  enablePointsBadges: true,
-}, update);
+chrome.storage.sync.get(
+  {
+    enableCardIds: true,
+    enableListGrouping: true,
+    enablePointsBadges: true,
+  },
+  function (settings) {
+    setInterval(() => update(settings), 500);
+  }
+);
