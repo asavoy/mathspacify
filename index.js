@@ -2,7 +2,7 @@ const REG_EXP = /^\s*(\#[0-9]+)?\s*([\(\[]\s*([\.0-9\?]+)\s*[\]\)])?(.*)$/i;
 
 function update(settings) {
 
-  const cards = Array.from(document.querySelectorAll('#board .list-card'));
+  const cards = Array.from(document.querySelectorAll('#board .list-card:not(.js-composer)'));
   const lists = Array.from(document.querySelectorAll('#board .list-wrapper:not(.js-add-list)'));
 
   if (settings.enableCardIds) {
@@ -80,9 +80,9 @@ function update(settings) {
           pointPrefix.classList.add('point-prefix');
           pointPrefix.classList.add('hide');
 
-          title.childNodes[1].data = match[4];
+          title.childNodes[title.childNodes.length - 1].data = match[4];
 
-          title.insertBefore(pointPrefix, title.childNodes[1]);
+          title.insertBefore(pointPrefix, title.childNodes[title.childNodes.length - 1]);
         }
 
         if (pointPrefix.innerText != `(${value})`) pointPrefix.innerText = `(${value})`;
