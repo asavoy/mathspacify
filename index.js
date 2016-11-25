@@ -1,4 +1,4 @@
-const REG_EXP = /^\s*(\#[0-9]+)?\s*[\(\[]\s*([\.0-9\?]+)\s*[\]\)](.*)$/i;
+const REG_EXP = /^\s*(\#[0-9]+)?\s*([\(\[]\s*([\.0-9\?]+)\s*[\]\)])?(.*)$/i;
 
 function update(settings) {
 
@@ -52,10 +52,14 @@ function update(settings) {
     cards.forEach((card) => {
       const title = card.querySelector('.list-card-title');
       const badgeList = card.querySelector('.badges');
-      const match = title && title.innerText.match(REG_EXP);
 
-      if (match) {
-        let badge = badgeList.querySelector('.point-badge');
+      let pointPrefix = title.querySelector('.point-prefix');
+      let badge = badgeList.querySelector('.point-badge');
+
+      const match = title && title.innerText.match(REG_EXP);
+      const value = (match && match[3]) || (pointPrefix && pointPrefix.innerText && pointPrefix.innerText.match(/[\.0-9\?]+/i)[0]);
+
+      if (match && value) {
 
         if (!badge) {
           badge = document.createElement('div');
@@ -66,14 +70,26 @@ function update(settings) {
           else badgeList.appendChild(badge);
         }
 
-        if (badge.innerText != match[2]) badge.innerText = match[2];
+        if (badge.innerText != value) badge.innerText = value;
 
-        if (match[2] === '?') badge.classList.add('point-badge--unestimated');
+        if (value === '?') badge.classList.add('point-badge--unestimated');
         else badge.classList.remove('point-badge--unestimated');
 
-        title.childNodes[1].data = match[3];
-      }
+        if (!pointPrefix) {
+          pointPrefix = document.createElement('span');
+          pointPrefix.classList.add('point-prefix');
+          pointPrefix.classList.add('hide');
 
+          title.childNodes[1].data = match[4];
+
+          title.insertBefore(pointPrefix, title.childNodes[1]);
+        }
+
+        if (pointPrefix.innerText != `(${value})`) pointPrefix.innerText = `(${value})`;
+
+      } else if (badge) {
+        badgeList.removeChild(badge);
+      }
     });
 
     lists.forEach((list) => {
