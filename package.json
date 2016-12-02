@@ -1,5 +1,6 @@
 {
   "dependencies": {
     "nativefier": "^7.0.1"
-  }
+  },
+  "private": true
 }
