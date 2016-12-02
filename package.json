@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "nativefier 'https://trello.com/b/IYVYTjoN/dev' --name 'Trello' --icon 'trello.icns' --inject index.js --inject index.css"
+  },
   "dependencies": {
     "nativefier": "^7.0.1"
   },
