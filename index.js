@@ -116,14 +116,26 @@ function update(settings) {
 
   }
 }
-
-chrome.storage.sync.get(
-  {
-    enableCardIds: true,
-    enableListGrouping: true,
-    enablePointsBadges: true,
-  },
-  function (settings) {
-    setInterval(() => update(settings), 500);
-  }
-);
+if (typeof(chrome) !== 'undefined') {
+  chrome.storage.sync.get(
+    {
+      enableCardIds: true,
+      enableListGrouping: true,
+      enablePointsBadges: true,
+    },
+    function (settings) {
+      setInterval(() => update(settings), 500);
+    }
+  );
+}
+else {
+  const updateAndPoll = () => {
+    update({
+      enableCardIds: true,
+      enableListGrouping: true,
+      enablePointsBadges: true,
+    });
+    setTimeout(updateAndPoll, 1000);
+  };
+  updateAndPoll();
+}
